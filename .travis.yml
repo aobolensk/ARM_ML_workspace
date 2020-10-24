@@ -1,0 +1,19 @@
+matrix:
+  include:
+    - os: linux
+      dist: focal
+      arch: arm64
+      name: Bench
+      compiler: gcc
+      addons:
+        apt:
+          packages:
+            - g++
+            - cmake
+            - scons
+            - python3
+      script:
+        - uname -a
+        - python3 -m pip install --upgrade pip
+        - ./build.sh
+        - ./bench.py --count 1000
