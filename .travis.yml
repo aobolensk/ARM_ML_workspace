@@ -16,4 +16,4 @@ matrix:
         - uname -a
         - python3 -m pip install --upgrade pip
         - ./build.sh
-        - ./bench.py --count 1000
+        - ./alexnet_bench.py --count 100

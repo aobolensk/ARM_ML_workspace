@@ -6,7 +6,7 @@ import os
 import shutil
 import subprocess
 
-import cv2
+from PIL import Image
 
 IMAGES_DIR = "imagenet"
 TMP_DIR = "tmp"
@@ -19,12 +19,12 @@ top5_count = 0
 def process_image(image_path: str):
     global top1_count, top5_count
     # Resize image and convert it to ppm format
-    img = cv2.imread(image_path)
-    img = cv2.resize(img, (227, 227))
+    img = Image.open(image_path)
+    img = img.resize((227, 227))
     image_name = os.path.splitext(os.path.basename(image_path))[0]
     wnid = image_name.split("_")[0]
     ppm_path = os.path.join(TMP_DIR, image_name + '.ppm')
-    cv2.imwrite(ppm_path, img)
+    img.save(ppm_path)
 
     # Run AlexNet
     proc = subprocess.Popen([
