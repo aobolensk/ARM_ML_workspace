@@ -10,6 +10,8 @@ cd ComputeLibrary
 scons Werror=1 debug=0 asserts=0 neon=1 opencl=1 embed_kernels=1 extra_cxx_flags="-fPIC" internal_only=0 arch=arm64-v8a -j`nproc --all`
 cd $WORKSPACE_DIR
 
+echo "Downloading images..."
+
 # Download images
 if [ ! -d ./imagenet ]; then
     mkdir imagenet && cd imagenet
@@ -22,6 +24,8 @@ if [ ! -d ./imagenet ]; then
 fi
 cd $WORKSPACE_DIR
 
+echo "Downloading assets..."
+
 # Download assets
 if [ ! -d ./alexnet_assets ]; then
     mkdir alexnet_assets && cd alexnet_assets
@@ -30,6 +34,8 @@ if [ ! -d ./alexnet_assets ]; then
     rm compute_library_alexnet.zip
 fi
 cd $WORKSPACE_DIR
+
+echo "Installing Python requirements.txt"
 
 # Install Python requirements
 python3 -m pip install -r requirements.txt
