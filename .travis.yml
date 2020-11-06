@@ -15,5 +15,5 @@ matrix:
       script:
         - uname -a
         - python3 -m pip install --upgrade pip
-        - ./build.sh
+        - ./build.py
         - ./alexnet_bench.py --count 100
