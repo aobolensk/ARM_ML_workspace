@@ -5,6 +5,7 @@ import datetime
 import os
 import shutil
 import subprocess
+from multiprocessing.pool import ThreadPool
 
 from PIL import Image
 
@@ -73,17 +74,16 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose")
     parser.add_argument("-c", "--count", type=int)
+    parser.add_argument("-j", "--jobs", type=int, default=1)
     args = parser.parse_args()
     if os.path.isdir(TMP_DIR):
         shutil.rmtree(TMP_DIR)
     os.mkdir(TMP_DIR)
     images = os.listdir(IMAGES_DIR)
     print(f"Start: {datetime.datetime.now()}")
-    for index, image in enumerate(images):
-        if index == args.count:
-            break
-        print(f"Processing image {image}")
-        process_image(os.path.join(IMAGES_DIR, image))
+    pool = ThreadPool(args.jobs)
+    pool.map(process_image, list(os.path.join(IMAGES_DIR, image) for image in images)[:args.count])
+    pool.close()
     print(f"Stats: Top-1: {top1_count}, Top-5: {top5_count}")
     print(f"Finish: {datetime.datetime.now()}")
 
