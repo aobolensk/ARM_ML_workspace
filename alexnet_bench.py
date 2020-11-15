@@ -66,8 +66,6 @@ def process_image(image_path: str):
             prediction += 1
             if prediction > 5:
                 break
-    else:
-        print("> Got nothing", flush=True)
 
 def main():
     global top1_count, top5_count, args
