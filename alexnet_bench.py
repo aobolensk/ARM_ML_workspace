@@ -42,7 +42,7 @@ def process_image(image_path: str):
     out, err = out.decode("utf-8"), err.decode("utf-8")
     if proc.returncode != 0:
         print("Error:", err)
-        exit(1)
+        return
     if args.verbose:
         print(out)
 
