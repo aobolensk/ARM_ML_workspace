@@ -4,6 +4,10 @@ import multiprocessing
 import os
 import sys
 
+
+print("Installing apt packages (Debian/Ubuntu)...")
+os.system("sudo apt install g++-aarch64-linux-gnu wget scons caffe python3-caffe")
+
 print("Installing requirements...")
 os.system(f"{sys.executable} -m pip install -r requirements.txt")
 WORKSPACE_DIR = os.getcwd()
