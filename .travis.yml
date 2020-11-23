@@ -8,9 +8,6 @@ matrix:
       addons:
         apt:
           packages:
-            - g++
-            - cmake
-            - scons
             - python3
       script:
         - uname -a
