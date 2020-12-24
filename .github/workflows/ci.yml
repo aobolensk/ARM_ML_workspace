@@ -1,0 +1,13 @@
+name: CI
+
+on: [push]
+
+jobs:
+  validation:
+    runs-on: [self-hosted, Linux, ARM64]
+    steps:
+    - uses: actions/checkout@v1
+    - run: uname -a
+    - run: python3 -m pip install --upgrade pip
+    - run: ./build.py
+    - run: ./alexnet_bench.py --count 800 --jobs $(nproc --all)
