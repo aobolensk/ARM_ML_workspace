@@ -1,16 +1,21 @@
 #!/usr/bin/env python3
 
+import argparse
 import multiprocessing
 import os
 import sys
 
 
-print("Installing apt packages (Debian/Ubuntu)...")
-os.system("sudo apt install g++-aarch64-linux-gnu wget scons caffe python3-caffe")
+args = None
 
-print("Installing requirements...")
-os.system(f"{sys.executable} -m pip install -r requirements.txt")
-WORKSPACE_DIR = os.getcwd()
+
+def install_dependencies():
+    print("Installing apt packages (Debian/Ubuntu)...")
+    os.system("sudo apt install g++-aarch64-linux-gnu wget scons caffe python3-caffe")
+
+    print("Installing requirements...")
+    os.system(f"{sys.executable} -m pip install -r requirements.txt")
+    WORKSPACE_DIR = os.getcwd()
 
 
 def build_compute_library():
@@ -52,6 +57,12 @@ def download_assets():
 
 
 def main():
+    global args
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d", "--dependencies", action="store_true", help="Install dependencies")
+    args = parser.parse_args()
+    if args.dependencies:
+        install_dependencies()
     os.system("git submodule update --init --recursive")
     dl_thread = multiprocessing.Process(target=download_images)
     dl_thread.start()
