@@ -7,6 +7,7 @@ import sys
 
 
 args = None
+WORKSPACE_DIR = os.getcwd()
 
 
 def install_dependencies():
@@ -15,7 +16,6 @@ def install_dependencies():
 
     print("Installing requirements...")
     os.system(f"{sys.executable} -m pip install -r requirements.txt")
-    WORKSPACE_DIR = os.getcwd()
 
 
 def build_compute_library():
