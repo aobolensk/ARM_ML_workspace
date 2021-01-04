@@ -26,7 +26,8 @@ def build_compute_library():
 
 
 def download_images():
-    if os.path.isdir("imagenet"):
+    if os.path.isdir(os.path.join(WORKSPACE_DIR, "imagenet")):
+        print("Images are already downloaded!")
         return
     print("Downloading images...", flush=True)
     os.mkdir("imagenet")
