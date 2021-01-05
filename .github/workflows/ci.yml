@@ -6,7 +6,9 @@ jobs:
   validation:
     runs-on: [self-hosted, Linux, ARM64]
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
+      with:
+        clean: false
     - run: uname -a
     - run: python3 -m pip install --upgrade pip
     - run: ./build.py
